@@ -1,0 +1,13 @@
+﻿item,value
+reviews_scanned,43886944
+reviews_on_target_products,4149711
+target_review_share,0.094555
+reviews_missing_parent_asin,0
+verified_true,3796935
+verified_false,352776
+verified_other,0
+rating_missing_or_invalid,0
+timestamp_missing_or_invalid,257
+text_missing,6620
+text_len_p50,139.0
+text_len_p90,602.0

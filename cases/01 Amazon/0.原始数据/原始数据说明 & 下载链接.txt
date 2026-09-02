@@ -1,0 +1,17 @@
+Amazon Reviews 2023，UCSD McAuley Lab 发布的公开评论库。项目页 https://amazon-reviews-2023.github.io/ ，论文 arXiv:2403.03952。
+时间范围约 1996-05 至 2023-09。
+本项目取其中 Electronics 类目两个压缩文件，均为 gzip 的 JSON Lines（一行一条 JSON）。
+
+商品元数据
+https://mcauleylab.ucsd.edu/public_datasets/data/amazon_2023/raw/meta_categories/meta_Electronics.jsonl.gz
+解压后一行一个商品。
+
+主要字段：parent_asin，asin，title，store，main_category，categories，price，average_rating，rating_number，features，description，details，images。price 为页面标价，可缺失。
+
+评论
+https://mcauleylab.ucsd.edu/public_datasets/data/amazon_2023/raw/review_categories/Electronics.jsonl.gz
+解压后一行一条评论。
+
+主要字段：parent_asin，asin，user_id，rating，title，text，timestamp，verified_purchase，helpful_votes，images。rating 为 1–5；timestamp 为 Unix 时间；verified_purchase 为是否验证购买。
+
+两文件用 parent_asin 对应同一款商品。源库是评论与元数据，不含订单、销量、实付价。Electronics 官网计数约为评论 4390 万、商品 160 万。

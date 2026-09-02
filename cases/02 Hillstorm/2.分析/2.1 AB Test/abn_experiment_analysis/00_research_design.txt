@@ -16,4 +16,4 @@ Mens E-Mail vs Womens E-Mail
 
 统计推断
 --------
-采用双侧检验，显著性水平 alpha = 0.05。Spend、Visit 和 Conversion 三类指标分别在各自检验族内应用 Holm 多重比较校正。报告的置信区间为名义 95% 置信区间，不做多重性校正。
+采用双侧检验，显著性水平 alpha = 0.05。Spend、Visit 和 Conversion 三类指标分别在各自检验族内应用 Holm 多重比较校正。报告的置信区间为 95% 置信区间，不做多重性校正。

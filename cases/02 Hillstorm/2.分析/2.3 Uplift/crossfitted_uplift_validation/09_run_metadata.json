@@ -1,5 +1,5 @@
 {
-  "data_path": "E:\\DA Cases\\Hillstorm\\0.原始数据\\hillstorm_no_indices.csv\\hillstorm_no_indices.csv",
+  "data_path": "1.原始数据与数据审计/1.1 原始数据/hillstorm_no_indices.csv/hillstorm_no_indices.csv",
   "rows": 64000,
   "folds": 5,
   "features": [

@@ -9,7 +9,7 @@ import pandas as pd
 from statsmodels.stats.multitest import multipletests
 
 
-PACKAGE_ROOT = Path(__file__).resolve().parents[1]
+PACKAGE_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PACKAGE_ROOT))
 
 from hillstrom_common import (  # noqa: E402
@@ -30,7 +30,7 @@ ALPHA = 0.05
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run Spend robustness checks.")
+    parser = argparse.ArgumentParser(description="运行 Spend 稳健性检验。")
     parser.add_argument("--data", type=Path, default=DEFAULT_DATA_PATH)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUTS["robustness"])
     parser.add_argument("--bootstrap", type=int, default=10_000)
@@ -71,32 +71,30 @@ def main() -> None:
         raise ValueError("Segment and Spend must not contain missing values.")
 
     print("=" * 82)
-    print("Hillstorm Spend Robustness Analysis")
+    print("Hillstorm Spend 稳健性分析")
     print("=" * 82)
-    print(f"Input : {args.data}")
-    print(f"Output: {output}")
+    print(f"输入：{args.data}")
+    print(f"输出：{output}")
 
-    design = f"""Hillstorm Spend Robustness Analysis
+    design = f"""Hillstorm Spend 稳健性分析设计
 
-Estimand
+估计量
+------
+按随机分配客户计算的人均 Spend（意向治疗，ITT）。
+
+检验程序
 --------
-Mean Spend per randomized customer (intention to treat).
+1. Welch 均值差异推断。
+2. 组内非参数百分位 Bootstrap。
+3. 保持三个观察组样本量不变的随机化检验。
+4. 对两两比较的随机化检验 p 值进行 Holm 校正。
+5. 使用置换 max-|t| 方法控制家族错误率。
 
-Procedures
-----------
-1. Welch mean-difference inference.
-2. Within-group non-parametric percentile bootstrap.
-3. Randomization test preserving the three observed group sizes.
-4. Holm adjustment of pairwise randomization p-values.
-5. Permutation max-|t| family-wise adjustment.
+Bootstrap 重复次数：{args.bootstrap:,}
+置换重复次数：{args.permutations:,}
+随机种子：{args.seed}
 
-Bootstrap replications: {args.bootstrap:,}
-Permutation replications: {args.permutations:,}
-Random seed: {args.seed}
-
-Zero Spend values are retained. No trimming, Winsorization, or
-post-treatment filtering is applied. Confidence intervals are nominal 95%
-intervals and are not multiplicity adjusted.
+保留 Spend = 0 的观测；不进行截尾、Winsorization 或任何处理后筛选。置信区间均为 95% 置信区间，不做多重性校正。
 """
     (output / "00_robustness_design.txt").write_text(design, encoding="utf-8")
 
@@ -223,23 +221,23 @@ intervals and are not multiplicity adjusted.
     )
     save_csv(comparison, output, "04_robustness_comparison.csv")
 
-    summary_lines = ["Hillstorm Spend Robustness Summary", ""]
+    summary_lines = ["Hillstorm Spend 稳健性分析摘要", ""]
     for row in comparison.itertuples(index=False):
         summary_lines.extend(
             [
                 f"{row.group_a} vs {row.group_b}",
-                f"Observed difference: {row.difference:.6f}",
-                f"Welch nominal 95% CI: [{row.ci_low:.6f}, {row.ci_high:.6f}]",
-                f"Bootstrap nominal 95% CI: [{row.bootstrap_ci_low:.6f}, {row.bootstrap_ci_high:.6f}]",
-                f"Welch Holm: {format_p(row.p_value_holm)}",
-                f"Permutation Holm: {format_p(row.permutation_p_value_holm)}",
-                f"Permutation max-|t|: {format_p(row.permutation_max_abs_t_p_value)}",
-                f"Robustness supported: {bool(row.robustness_supported)}",
+                f"观察均值差：{row.difference:.6f}",
+                f"Welch 95% CI：[{row.ci_low:.6f}, {row.ci_high:.6f}]",
+                f"Bootstrap 95% CI：[{row.bootstrap_ci_low:.6f}, {row.bootstrap_ci_high:.6f}]",
+                f"Welch Holm：{format_p(row.p_value_holm)}",
+                f"Permutation Holm：{format_p(row.permutation_p_value_holm)}",
+                f"Permutation max-|t|：{format_p(row.permutation_max_abs_t_p_value)}",
+                f"稳健性支持：{'是' if row.robustness_supported else '否'}",
                 "",
             ]
         )
-    overall = "SUPPORTED" if comparison["robustness_supported"].all() else "MIXED / REVIEW REQUIRED"
-    summary_lines.append(f"Overall robustness status: {overall}")
+    overall = "结果一致" if comparison["robustness_supported"].all() else "结果混合，需要复核"
+    summary_lines.append(f"整体稳健性状态：{overall}")
     summary_text = "\n".join(summary_lines)
     (output / "05_robustness_summary.txt").write_text(summary_text, encoding="utf-8")
     print("\n" + summary_text)

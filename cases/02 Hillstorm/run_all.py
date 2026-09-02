@@ -12,7 +12,7 @@ PACKAGE_ROOT = Path(__file__).resolve().parent
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run the complete Hillstorm pipeline.")
+    parser = argparse.ArgumentParser(description="运行完整的 Hillstorm 分析流程。")
     parser.add_argument("--data", type=Path, default=DEFAULT_DATA_PATH)
     parser.add_argument("--project-root", type=Path, default=DEFAULT_PROJECT_ROOT)
     parser.add_argument("--seed", type=int, default=20260902)
@@ -23,14 +23,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--quick",
         action="store_true",
-        help="Use reduced settings for a pipeline smoke test only.",
+        help="使用较低重复次数检查流程是否可以正常运行。",
     )
     return parser.parse_args()
 
 
 def run(script: Path, arguments: list[str]) -> None:
     command = [sys.executable, str(script), *arguments]
-    print(f"\nRunning {script.name}", flush=True)
+    print(f"\n正在运行 {script.name}", flush=True)
     subprocess.run(command, check=True)
 
 
@@ -44,27 +44,27 @@ def main() -> None:
 
     root = args.project_root
     outputs = {
-        "audit": root / "1.实验数据审计" / "results",
-        "abn": root / "2.AB Test" / "abn_experiment_analysis",
-        "robustness": root / "2.AB Test" / "spend_robustness",
-        "hte": root / "3.异质性效应" / "univariate_hte_analysis",
-        "uplift": root / "4.Uplift" / "crossfitted_uplift_validation",
-        "policy": root / "5.策略优化" / "multi_action_policy_evaluation",
-        "cost": root / "5.策略优化" / "cost_sensitivity_analysis",
+        "audit": root / "1.原始数据与数据审计" / "1.2 实验数据审计" / "results",
+        "abn": root / "2.分析" / "2.1 AB Test" / "abn_experiment_analysis",
+        "robustness": root / "2.分析" / "2.1 AB Test" / "spend_robustness",
+        "hte": root / "2.分析" / "2.2 异质性效应" / "univariate_hte_analysis",
+        "uplift": root / "2.分析" / "2.3 Uplift" / "crossfitted_uplift_validation",
+        "policy": root / "2.分析" / "2.4 策略优化" / "multi_action_policy_evaluation",
+        "cost": root / "2.分析" / "2.4 策略优化" / "cost_sensitivity_analysis",
     }
     data_args = ["--data", str(args.data)]
     seed_args = ["--seed", str(args.seed)]
 
     run(
-        PACKAGE_ROOT / "1.实验数据审计" / "01_experiment_data_audit.py",
+        PACKAGE_ROOT / "1.原始数据与数据审计" / "1.2 实验数据审计" / "01_experiment_data_audit.py",
         [*data_args, "--output", str(outputs["audit"])],
     )
     run(
-        PACKAGE_ROOT / "2.AB Test" / "02_abn_experiment_analysis.py",
+        PACKAGE_ROOT / "2.分析" / "2.1 AB Test" / "02_abn_experiment_analysis.py",
         [*data_args, "--output", str(outputs["abn"])],
     )
     run(
-        PACKAGE_ROOT / "2.AB Test" / "03_spend_robustness_checks.py",
+        PACKAGE_ROOT / "2.分析" / "2.1 AB Test" / "03_spend_robustness_checks.py",
         [
             *data_args,
             "--output",
@@ -77,11 +77,11 @@ def main() -> None:
         ],
     )
     run(
-        PACKAGE_ROOT / "3.异质性效应" / "04_univariate_hte_analysis.py",
+        PACKAGE_ROOT / "2.分析" / "2.2 异质性效应" / "04_univariate_hte_analysis.py",
         [*data_args, "--output", str(outputs["hte"])],
     )
     run(
-        PACKAGE_ROOT / "4.Uplift" / "05_crossfitted_uplift_validation.py",
+        PACKAGE_ROOT / "2.分析" / "2.3 Uplift" / "05_crossfitted_uplift_validation.py",
         [
             *data_args,
             "--output",
@@ -98,7 +98,7 @@ def main() -> None:
 
     predictions = outputs["uplift"] / "08_oof_predictions.csv.gz"
     run(
-        PACKAGE_ROOT / "5.策略优化" / "06_multi_action_policy_evaluation.py",
+        PACKAGE_ROOT / "2.分析" / "2.4 策略优化" / "06_multi_action_policy_evaluation.py",
         [
             "--predictions",
             str(predictions),
@@ -110,7 +110,7 @@ def main() -> None:
         ],
     )
     run(
-        PACKAGE_ROOT / "5.策略优化" / "07_cost_sensitivity_analysis.py",
+        PACKAGE_ROOT / "2.分析" / "2.4 策略优化" / "07_cost_sensitivity_analysis.py",
         [
             "--predictions",
             str(predictions),
@@ -119,7 +119,7 @@ def main() -> None:
         ],
     )
 
-    print("\nHillstorm pipeline completed successfully.")
+    print("\nHillstorm 分析流程已完成。")
 
 
 if __name__ == "__main__":

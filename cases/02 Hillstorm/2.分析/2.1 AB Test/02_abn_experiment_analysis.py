@@ -12,7 +12,7 @@ from statsmodels.stats.oneway import anova_oneway
 from statsmodels.stats.proportion import proportions_ztest
 
 
-PACKAGE_ROOT = Path(__file__).resolve().parents[1]
+PACKAGE_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PACKAGE_ROOT))
 
 from hillstrom_common import (  # noqa: E402
@@ -34,7 +34,7 @@ ALPHA = 0.05
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run the Hillstorm A/B/n analysis.")
+    parser = argparse.ArgumentParser(description="运行 Hillstorm A/B/n 实验分析。")
     parser.add_argument("--data", type=Path, default=DEFAULT_DATA_PATH)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUTS["abn"])
     return parser.parse_args()
@@ -99,32 +99,30 @@ def main() -> None:
         raise ValueError("Segment and outcome columns must not contain missing values.")
 
     print("=" * 82)
-    print("Hillstorm Randomized A/B/n Experiment Analysis")
+    print("Hillstorm 随机 A/B/n 实验分析")
     print("=" * 82)
-    print(f"Input : {args.data}")
-    print(f"Output: {output}")
+    print(f"输入：{args.data}")
+    print(f"输出：{output}")
 
-    design = """Hillstorm Randomized A/B/n Experiment Analysis
+    design = """Hillstorm 随机 A/B/n 实验分析设计
 
-Primary estimand
------------------
-Mean Spend per randomized customer (intention to treat).
+主要估计量
+----------
+按随机分配客户计算的人均 Spend（意向治疗，ITT）。
 
-Secondary outcomes
-------------------
-Visit rate and conversion rate.
+次要结果指标
+------------
+访问率与转化率。
 
-Planned contrasts
------------------
+预设比较
+--------
 Mens E-Mail vs No E-Mail
 Womens E-Mail vs No E-Mail
 Mens E-Mail vs Womens E-Mail
 
-Inference
----------
-Two-sided tests with alpha = 0.05. Holm adjustment is applied separately
-within the Spend, Visit, and Conversion families. Reported confidence
-intervals are nominal 95% intervals and are not multiplicity adjusted.
+统计推断
+--------
+采用双侧检验，显著性水平 alpha = 0.05。Spend、Visit 和 Conversion 三类指标分别在各自检验族内应用 Holm 多重比较校正。报告的置信区间为 95% 置信区间，不做多重性校正。
 """
     (output / "00_research_design.txt").write_text(design, encoding="utf-8")
 
@@ -292,14 +290,14 @@ intervals are nominal 95% intervals and are not multiplicity adjusted.
         )
     save_csv(pd.DataFrame(unified_rows), output, "06_all_planned_contrasts.csv")
 
-    print("\nPrimary outcome: Spend per randomized customer")
+    print("\n主要结果：每名随机客户的 Spend")
     for _, row in decision.iterrows():
         print(
             f"{row['comparison']}: {row['difference']:.6f} "
             f"[{row['ci_low']:.6f}, {row['ci_high']:.6f}], "
             f"Holm {format_p(row['p_value_holm'])}"
         )
-    print("\nGenerated files:")
+    print("\n生成文件：")
     for path in sorted(output.iterdir()):
         print(f"  {path.name}")
 

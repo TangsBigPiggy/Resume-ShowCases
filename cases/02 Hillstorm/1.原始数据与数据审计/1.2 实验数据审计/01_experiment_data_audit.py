@@ -9,7 +9,7 @@ import pandas as pd
 from scipy import stats
 
 
-PACKAGE_ROOT = Path(__file__).resolve().parents[1]
+PACKAGE_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PACKAGE_ROOT))
 
 from hillstrom_common import (  # noqa: E402
@@ -38,7 +38,7 @@ OUTCOMES = ["visit", "conversion", "spend"]
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Audit the Hillstorm experiment data.")
+    parser = argparse.ArgumentParser(description="审计 Hillstorm 实验数据。")
     parser.add_argument("--data", type=Path, default=DEFAULT_DATA_PATH)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUTS["audit"])
     return parser.parse_args()
@@ -63,10 +63,10 @@ def main() -> None:
     validate_binary(df, ["mens", "womens", "newbie", "visit", "conversion"])
 
     print("=" * 82)
-    print("Hillstorm Experiment Data Audit")
+    print("Hillstorm 实验数据审计")
     print("=" * 82)
-    print(f"Input : {args.data}")
-    print(f"Output: {output}")
+    print(f"输入：{args.data}")
+    print(f"输出：{output}")
 
     schema = pd.DataFrame(
         {
@@ -212,28 +212,27 @@ def main() -> None:
     rows_in_duplicate_groups = int(df.duplicated(keep=False).sum())
     critical_missing = int(missingness.loc[missingness["column"].isin(required), "missing_count"].sum())
     logic_violations = int(logic_checks["violation_count"].sum())
-    status = "PASS" if srm_p >= 0.01 and critical_missing == 0 and logic_violations == 0 else "REVIEW"
+    status = "通过" if srm_p >= 0.01 and critical_missing == 0 and logic_violations == 0 else "需要复核"
 
-    summary = f"""Hillstorm Experiment Data Audit
+    summary = f"""Hillstorm 实验数据审计摘要
 
-Status: {status}
-Rows: {len(df):,}
-Columns: {df.shape[1]}
-SRM test: chi-square = {srm_stat:.6f}, {format_p(srm_p)}
-Critical missing values: {critical_missing:,}
-Outcome logic violations: {logic_violations:,}
-Exact duplicate rows after the first occurrence: {duplicate_rows_after_first:,}
-Rows belonging to an exact-duplicate group: {rows_in_duplicate_groups:,}
+状态：{status}
+行数：{len(df):,}
+列数：{df.shape[1]}
+SRM 检验：卡方统计量 = {srm_stat:.6f}，{format_p(srm_p)}
+关键字段缺失值：{critical_missing:,}
+结果变量逻辑违规：{logic_violations:,}
+首次出现之后的完全重复行：{duplicate_rows_after_first:,}
+属于完全重复组的行数：{rows_in_duplicate_groups:,}
 
-Duplicate handling
-------------------
-No customer identifier is available. Exact row matches therefore cannot be
-confirmed as duplicate experimental units and are retained in every analysis.
+重复值处理
+----------
+数据中没有客户唯一标识符，因此无法确认完全相同的记录是否代表重复的实验单位。为避免误删有效观测，所有分析均保留这些记录。
 """
     (output / "00_audit_summary.txt").write_text(summary, encoding="utf-8")
 
     print(summary)
-    print("Generated files:")
+    print("生成文件：")
     for path in sorted(output.iterdir()):
         print(f"  {path.name}")
 

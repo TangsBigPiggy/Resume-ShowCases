@@ -7,10 +7,13 @@ import numpy as np
 import pandas as pd
 
 
-DEFAULT_PROJECT_ROOT = Path(r"E:\DA Cases\Hillstorm")
-DEFAULT_DATA_PATH = Path(
-    r"E:\DA Cases\Hillstorm\0.原始数据\hillstorm_no_indices.csv"
-    r"\hillstorm_no_indices.csv"
+DEFAULT_PROJECT_ROOT = Path(__file__).resolve().parent
+DEFAULT_DATA_PATH = (
+    DEFAULT_PROJECT_ROOT
+    / "1.原始数据与数据审计"
+    / "1.1 原始数据"
+    / "hillstorm_no_indices.csv"
+    / "hillstorm_no_indices.csv"
 )
 
 GROUP_ORDER = ["No E-Mail", "Mens E-Mail", "Womens E-Mail"]
@@ -33,13 +36,13 @@ PRETREATMENT_FEATURES = [
 ]
 
 DEFAULT_OUTPUTS = {
-    "audit": DEFAULT_PROJECT_ROOT / "1.实验数据审计" / "results",
-    "abn": DEFAULT_PROJECT_ROOT / "2.AB Test" / "abn_experiment_analysis",
-    "robustness": DEFAULT_PROJECT_ROOT / "2.AB Test" / "spend_robustness",
-    "hte": DEFAULT_PROJECT_ROOT / "3.异质性效应" / "univariate_hte_analysis",
-    "uplift": DEFAULT_PROJECT_ROOT / "4.Uplift" / "crossfitted_uplift_validation",
-    "policy": DEFAULT_PROJECT_ROOT / "5.策略优化" / "multi_action_policy_evaluation",
-    "cost": DEFAULT_PROJECT_ROOT / "5.策略优化" / "cost_sensitivity_analysis",
+    "audit": DEFAULT_PROJECT_ROOT / "1.原始数据与数据审计" / "1.2 实验数据审计" / "results",
+    "abn": DEFAULT_PROJECT_ROOT / "2.分析" / "2.1 AB Test" / "abn_experiment_analysis",
+    "robustness": DEFAULT_PROJECT_ROOT / "2.分析" / "2.1 AB Test" / "spend_robustness",
+    "hte": DEFAULT_PROJECT_ROOT / "2.分析" / "2.2 异质性效应" / "univariate_hte_analysis",
+    "uplift": DEFAULT_PROJECT_ROOT / "2.分析" / "2.3 Uplift" / "crossfitted_uplift_validation",
+    "policy": DEFAULT_PROJECT_ROOT / "2.分析" / "2.4 策略优化" / "multi_action_policy_evaluation",
+    "cost": DEFAULT_PROJECT_ROOT / "2.分析" / "2.4 策略优化" / "cost_sensitivity_analysis",
 }
 
 

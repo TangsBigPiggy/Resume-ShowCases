@@ -2,8 +2,8 @@ Hillstorm Spend 稳健性分析摘要
 
 Mens E-Mail vs No E-Mail
 观察均值差：0.769827
-Welch 名义 95% CI：[0.485140, 1.054515]
-Bootstrap 名义 95% CI：[0.492313, 1.056880]
+Welch 95% CI：[0.485140, 1.054515]
+Bootstrap 95% CI：[0.492313, 1.056880]
 Welch Holm：p = 3.491e-07
 Permutation Holm：p = 3.000e-04
 Permutation max-|t|：p = 9.999e-05
@@ -11,8 +11,8 @@ Permutation max-|t|：p = 9.999e-05
 
 Womens E-Mail vs No E-Mail
 观察均值差：0.424412
-Welch 名义 95% CI：[0.168957, 0.679868]
-Bootstrap 名义 95% CI：[0.166472, 0.679928]
+Welch 95% CI：[0.168957, 0.679868]
+Bootstrap 95% CI：[0.166472, 0.679928]
 Welch Holm：p = 0.0023
 Permutation Holm：p = 0.0034
 Permutation max-|t|：p = 0.0037
@@ -20,8 +20,8 @@ Permutation max-|t|：p = 0.0037
 
 Mens E-Mail vs Womens E-Mail
 观察均值差：0.345415
-Welch 名义 95% CI：[0.032561, 0.658268]
-Bootstrap 名义 95% CI：[0.040432, 0.659478]
+Welch 95% CI：[0.032561, 0.658268]
+Bootstrap 95% CI：[0.040432, 0.659478]
 Welch Holm：p = 0.0305
 Permutation Holm：p = 0.0316
 Permutation max-|t|：p = 0.0811

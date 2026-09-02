@@ -10,7 +10,7 @@ import statsmodels.formula.api as smf
 from statsmodels.stats.multitest import multipletests
 
 
-PACKAGE_ROOT = Path(__file__).resolve().parents[1]
+PACKAGE_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PACKAGE_ROOT))
 
 from hillstrom_common import (  # noqa: E402
@@ -40,7 +40,7 @@ MODERATORS = [
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run pre-specified univariate HTE tests.")
+    parser = argparse.ArgumentParser(description="运行预设单变量 HTE 检验。")
     parser.add_argument("--data", type=Path, default=DEFAULT_DATA_PATH)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUTS["hte"])
     return parser.parse_args()
@@ -100,35 +100,29 @@ def main() -> None:
         df[column] = df[column].map({0: "No", 1: "Yes"})
 
     print("=" * 82)
-    print("Hillstorm Pre-specified Univariate HTE Analysis")
+    print("Hillstorm 预设单变量 HTE 分析")
     print("=" * 82)
-    print(f"Input : {args.data}")
-    print(f"Output: {output}")
+    print(f"输入：{args.data}")
+    print(f"输出：{output}")
 
-    design = """Hillstorm Pre-specified Univariate HTE Analysis
+    design = """Hillstorm 预设单变量 HTE 分析设计
 
-Outcome
--------
-Spend per randomized customer.
+结果变量
+--------
+按随机分配客户计算的人均 Spend。
 
-Treatment contrasts
--------------------
+处理比较
+--------
 Mens E-Mail vs No E-Mail
 Womens E-Mail vs No E-Mail
 
-Moderators
-----------
-Recency band, historical spend segment, prior Mens-category purchase,
-prior Womens-category purchase, new customer status, historical channel,
-and ZIP-code type.
+调节变量
+--------
+最近购买时间分组、历史消费分组、历史 Mens 类别购买、历史 Womens 类别购买、新客户状态、历史渠道以及 ZIP Code 类型。
 
-Inference
----------
-OLS interaction models use HC3 heteroskedasticity-robust covariance.
-Global interaction tests are Holm-adjusted across the seven moderators.
-Treatment-specific tests are adjusted separately within each treatment.
-Subgroup effects have nominal 95% intervals and are descriptive; evidence
-of heterogeneity is determined by the interaction tests.
+统计推断
+--------
+OLS 交互模型采用 HC3 异方差稳健协方差。七个调节变量的全局交互检验统一进行 Holm 校正；各处理组的特定检验分别进行校正。子组效应报告 95% 置信区间，主要用于描述；是否存在异质性证据以交互项检验结果为准。
 """
     (output / "00_hte_design.txt").write_text(design, encoding="utf-8")
 
@@ -243,10 +237,10 @@ of heterogeneity is determined by the interaction tests.
     supported_subgroups = subgroup_effects[subgroup_effects["moderator"].isin(supported)].copy()
     save_csv(supported_subgroups, output, "05_supported_subgroup_effects.csv")
 
-    print("\nGlobal heterogeneity tests")
+    print("\n全局异质性检验")
     print(global_tests.to_string(index=False, float_format=lambda value: f"{value:.6f}"))
-    print("\nSupported moderators:")
-    print("  " + ", ".join(sorted(supported)) if supported else "  None after Holm adjustment.")
+    print("\n获得统计支持的调节变量：")
+    print("  " + ", ".join(sorted(supported)) if supported else "  Holm 校正后无。")
 
 
 if __name__ == "__main__":

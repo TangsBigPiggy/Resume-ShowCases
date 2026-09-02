@@ -9,7 +9,7 @@ import pandas as pd
 from statsmodels.stats.multitest import multipletests
 
 
-PACKAGE_ROOT = Path(__file__).resolve().parents[1]
+PACKAGE_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PACKAGE_ROOT))
 
 from hillstrom_common import (  # noqa: E402
@@ -26,6 +26,12 @@ ALPHA = 0.05
 ACTION_PROBABILITY = 1 / 3
 ACTION_TO_INDEX = {action: index for index, action in enumerate(GROUP_ORDER)}
 POLICY_ORDER = ["no_email_all", "mens_all", "womens_all", "personalized_dr"]
+POLICY_LABELS = {
+    "no_email_all": "全量不发送邮件",
+    "mens_all": "全量男装邮件",
+    "womens_all": "全量女装邮件",
+    "personalized_dr": "个性化 DR 策略",
+}
 REQUIRED_COLUMNS = {
     "row_id",
     "fold",
@@ -40,7 +46,7 @@ REQUIRED_COLUMNS = {
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Evaluate multi-action email policies.")
+    parser = argparse.ArgumentParser(description="评估多动作邮件投放策略。")
     parser.add_argument(
         "--predictions",
         type=Path,
@@ -55,7 +61,7 @@ def parse_args() -> argparse.Namespace:
 def load_predictions(path: Path) -> pd.DataFrame:
     if not path.exists():
         raise FileNotFoundError(
-            f"OOF prediction file not found: {path}. Run Stage 05 first."
+            f"未找到样本外预测文件：{path}。请先运行 Uplift 验证脚本。"
         )
     predictions = pd.read_csv(path)
     missing = REQUIRED_COLUMNS - set(predictions.columns)
@@ -118,34 +124,28 @@ def main() -> None:
     predictions = load_predictions(args.predictions)
 
     print("=" * 82)
-    print("Hillstorm Multi-Action Policy Evaluation")
+    print("Hillstorm 多动作策略评估")
     print("=" * 82)
-    print(f"Input : {args.predictions}")
-    print(f"Output: {output}")
+    print(f"输入：{args.predictions}")
+    print(f"输出：{output}")
 
-    design = f"""Hillstorm Multi-Action Policy Evaluation
+    design = f"""Hillstorm 多动作策略评估设计
 
-Policies
---------
-No E-Mail for all
-Mens E-Mail for all
-Womens E-Mail for all
-Personalized DR policy: argmax of 0, predicted Mens uplift, and predicted
-Womens uplift.
+策略
+----
+所有客户均不发送邮件
+所有客户均发送 Mens E-Mail
+所有客户均发送 Womens E-Mail
+个性化 DR 策略：在 0、预测 Mens Uplift、预测 Womens Uplift 三者中选择最大值对应的动作。
 
-Evaluation
-----------
-Known randomization probability: 1/3 for each action.
-Policy values are reported using direct-method, IPW, and AIPW estimators.
-The primary estimator is AIPW. The policy and nuisance predictions are fully
-out of fold for the evaluated customer. Paired, treatment-stratified fixed-
-policy bootstrap intervals quantify evaluation-sample uncertainty.
+评估
+----
+每个动作的已知随机分配概率均为 1/3。策略价值同时报告 Direct Method、IPW 和 AIPW 估计，主估计量为 AIPW。被评估客户对应的策略预测与干扰项预测均完全来自样本外。使用按处理组分层、固定策略的配对 Bootstrap 区间量化评估样本的不确定性。
 
-Bootstrap replications: {args.bootstrap:,}
-Random seed: {args.seed}
+Bootstrap 重复次数：{args.bootstrap:,}
+随机种子：{args.seed}
 
-The bootstrap holds the learned OOF policy fixed and does not include model-
-retraining uncertainty.
+Bootstrap 过程中固定已学习的 OOF 策略，因此不包含模型重新训练带来的不确定性。
 """
     (output / "00_policy_design.txt").write_text(design, encoding="utf-8")
 
@@ -252,25 +252,24 @@ retraining uncertainty.
         ).all()
     )
     best_comparison = comparisons[comparisons["policy_b"] == best_static].iloc[0]
-    decision = f"""Multi-Action Policy Decision
+    best_static_label = POLICY_LABELS[best_static]
+    decision = f"""多动作策略决策结论
 
-Best static policy by AIPW point estimate: {best_static}
-Personalized AIPW gain vs best static: {best_comparison['aipw_value_difference']:.6f}
-Paired bootstrap nominal 95% CI: [{best_comparison['bootstrap_ci_low']:.6f}, {best_comparison['bootstrap_ci_high']:.6f}]
-Holm-adjusted comparison: {format_p(best_comparison['bootstrap_p_value_holm'])}
-Personalization value supported: {personalization_supported}
+按 AIPW 点估计得到的最佳静态策略：{best_static_label}
+个性化策略相对最佳静态策略的 AIPW 增益：{best_comparison['aipw_value_difference']:.6f}
+配对 Bootstrap 95% CI：[{best_comparison['bootstrap_ci_low']:.6f}, {best_comparison['bootstrap_ci_high']:.6f}]
+Holm 校正比较：{format_p(best_comparison['bootstrap_p_value_holm'])}
+个性化价值获得支持：{'是' if personalization_supported else '否'}
 
-Decision rule
--------------
-The personalized policy must have a positive point estimate, positive paired
-bootstrap lower bound, and Holm-adjusted significance against every static
-policy. Otherwise the evidence for operational personalization is insufficient.
+判定规则
+--------
+个性化策略必须同时满足：点估计为正、配对 Bootstrap 下界为正，并且相对每一个静态策略的比较在 Holm 校正后达到显著。否则，认为当前证据不足以支持在实际运营中采用个性化策略。
 
-Policy values measure expected Spend per randomized customer, not profit or ROI.
+策略价值衡量的是每位随机客户的期望 Spend，而不是利润或 ROI。
 """
     (output / "04_policy_decision.txt").write_text(decision, encoding="utf-8")
 
-    print("\nPolicy values")
+    print("\n策略价值")
     print(policy_values.to_string(index=False, float_format=lambda value: f"{value:.6f}"))
     print("\n" + decision)
 

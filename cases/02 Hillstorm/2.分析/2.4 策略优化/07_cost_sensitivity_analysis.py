@@ -9,7 +9,7 @@ import pandas as pd
 from scipy import stats
 
 
-PACKAGE_ROOT = Path(__file__).resolve().parents[1]
+PACKAGE_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PACKAGE_ROOT))
 
 from hillstrom_common import (  # noqa: E402
@@ -41,7 +41,7 @@ REQUIRED_COLUMNS = {
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run email-cost sensitivity analysis.")
+    parser = argparse.ArgumentParser(description="运行邮件成本敏感性分析。")
     parser.add_argument(
         "--predictions",
         type=Path,
@@ -60,7 +60,7 @@ def parse_args() -> argparse.Namespace:
 def load_predictions(path: Path) -> pd.DataFrame:
     if not path.exists():
         raise FileNotFoundError(
-            f"OOF prediction file not found: {path}. Run Stage 05 first."
+            f"未找到样本外预测文件：{path}。请先运行 Uplift 验证脚本。"
         )
     predictions = pd.read_csv(path)
     missing = REQUIRED_COLUMNS - set(predictions.columns)
@@ -108,31 +108,26 @@ def main() -> None:
     predictions = load_predictions(args.predictions)
 
     print("=" * 82)
-    print("Hillstorm Cost Sensitivity Analysis")
+    print("Hillstorm 成本敏感性分析")
     print("=" * 82)
-    print(f"Input : {args.predictions}")
-    print(f"Output: {output}")
+    print(f"输入：{args.predictions}")
+    print(f"输出：{output}")
 
-    design = f"""Hillstorm Cost Sensitivity Analysis
+    design = f"""Hillstorm 成本敏感性分析设计
 
-Objective
----------
-Evaluate how assumed marginal email cost changes static and personalized
-policy value and the personalized policy's action allocation.
+目标
+----
+评估假设的邮件边际成本变化，如何影响静态策略和个性化策略的价值，以及个性化策略的动作分配。
 
-Cost grid
----------
+成本情景
+--------
 {', '.join(f'{cost:.2f}' for cost in costs)}
 
-Net outcome
------------
-Observed Spend minus the assumed marginal cost when an email is sent.
-Policy values use the AIPW estimator with known randomization probability 1/3.
-Normal influence-function intervals are conditional on the learned OOF policy
-and do not include model-retraining uncertainty.
+净结果
+------
+发送邮件时，以观察到的 Spend 减去假设的边际邮件成本作为净结果。策略价值采用 AIPW 估计量，随机分配概率已知为 1/3。基于影响函数的正态区间是在已学习的 OOF 策略条件下计算，不包含模型重新训练带来的不确定性。
 
-Costs are scenarios only. They do not represent documented campaign cost,
-gross margin, unsubscribe harm, or long-term customer value.
+上述成本仅为情景参数，不代表已确认的真实活动成本、毛利、退订损失或长期客户价值。
 """
     (output / "00_cost_sensitivity_design.txt").write_text(design, encoding="utf-8")
 
@@ -237,7 +232,7 @@ gross margin, unsubscribe harm, or long-term customer value.
             {
                 "strategy": label,
                 "estimated_break_even_email_cost": spend_value - no_email_value,
-                "interpretation": "Spend difference only; not a profit threshold",
+                "interpretation": "仅表示 Spend 差异，不是利润阈值",
             }
         )
     save_csv(pd.DataFrame(break_even_rows), output, "04_static_break_even_summary.csv")
@@ -245,21 +240,18 @@ gross margin, unsubscribe harm, or long-term customer value.
     supported_costs = comparisons.loc[
         comparisons["personalization_supported"], "email_cost"
     ].tolist()
-    conclusion = f"""Cost Sensitivity Decision
+    conclusion = f"""成本敏感性分析结论
 
-Costs with supported personalized gain over the best static policy:
-{', '.join(f'{cost:.2f}' for cost in supported_costs) if supported_costs else 'None on the specified grid'}
+在指定成本网格中，个性化策略相对最佳静态策略获得统计支持的增益：
+{', '.join(f'{cost:.2f}' for cost in supported_costs) if supported_costs else '无'}
 
-Interpretation
---------------
-The cost grid is a scenario analysis. Static break-even values are incremental
-Spend estimates, not profit thresholds. A deployment decision requires actual
-delivery cost, gross margin, unsubscribe or fatigue effects, and implementation
-costs that are not present in the Hillstorm data.
+解释
+----
+成本网格仅用于情景分析。静态策略的盈亏平衡值是增量 Spend 估计，并非利润阈值。正式投放决策还需要真实投放成本、毛利、退订或疲劳效应，以及 Hillstorm 数据中未包含的实施成本。
 """
     (output / "05_cost_sensitivity_decision.txt").write_text(conclusion, encoding="utf-8")
 
-    print("\nCost sensitivity comparisons")
+    print("\n成本敏感性比较")
     print(comparisons.to_string(index=False, float_format=lambda value: f"{value:.6f}"))
     print("\n" + conclusion)
 

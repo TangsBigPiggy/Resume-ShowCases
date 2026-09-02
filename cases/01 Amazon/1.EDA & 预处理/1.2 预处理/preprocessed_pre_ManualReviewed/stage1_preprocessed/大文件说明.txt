@@ -1,0 +1,20 @@
+大文件说明
+
+本目录未上传以下评论明细文件：
+1. reviews_analysis.csv（本地为压缩 CSV 版本）
+2. reviews_analysis.parquet
+
+原因：
+上述文件由 Amazon Electronics 原始评论数据经过项目预处理流程生成，体积较大，不适合直接纳入 GitHub 仓库。本地文件约为数百 MB 量级，因此仓库仅保留生成脚本、模型配置、质量汇总及其他轻量分析结果。
+
+生成逻辑：
+1. 读取 Amazon Electronics 原始 metadata 与 reviews；
+2. 结合人工复核 Gold 样本训练并校准商品资格模型；
+3. 仅保留最终判定为 DEVICE 的耳机商品评论；
+4. 对评论文本执行 NFKC、HTML/控制字符及空白规范化；
+5. 进行字段标准化、无效记录处理与精确去重；
+6. 输出用于后续评论分析的 reviews_analysis 数据集。
+
+因此，reviews_analysis.csv 与 reviews_analysis.parquet 都属于“由原始公开数据经本项目代码处理后得到的派生数据”，并非额外的外部数据源。取得原始 Amazon Reviews 2023 Electronics 数据、人工复核 Gold 样本并运行 1_2_preprocess_final.py 后即可重新生成。
+
+为避免仓库体积过大，本项目不在 GitHub 中保存这两个大体量派生文件。

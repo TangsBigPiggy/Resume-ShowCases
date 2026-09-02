@@ -1,0 +1,30 @@
+section,metric,value
+eligibility,target_unique_products,101853
+eligibility,device_products,47131
+eligibility,accessory_products,44648
+eligibility,ambiguous_products,10074
+eligibility,reviewed_gold_rows,2500
+eligibility,device_threshold,0.4100000000000002
+eligibility,accessory_threshold,0.31000000000000016
+eligibility,form_threshold,0.4700000000000001
+delivery,reviews_analysis_file,E:\DA Cases\Amazon\1.EDA & 预处理\1.2 预处理\preprocessed_pre_ManualReviewed\stage1_preprocessed\reviews_analysis.parquet
+products,device_products,47131
+products,price_fill_rate,0.242028
+products,average_rating_fill_rate,1.0
+products,products_with_source_reviews,47129
+products,products_with_analysis_text,47119
+products,products_analysis_parquet_written,1
+reviews,analysis_reviews_written,2963761
+reviews,device_source_reviews,3002468
+reviews,empty_text_dropped,4402
+reviews,exact_duplicate_dropped,34305
+reviews,invalid_or_missing_timestamp,205
+reviews,non_device_reviews,40884476
+reviews,reviews_scanned,43886944
+reviews,verified_false,295622
+reviews,verified_true,2706846
+reviews,eligible_device_products,47131
+reviews,products_with_analysis_reviews,47119
+reviews,top10_analysis_review_share,0.093269
+reviews,reviews_analysis_path,E:\DA Cases\Amazon\1.EDA & 预处理\1.2 预处理\preprocessed_pre_ManualReviewed\stage1_preprocessed\reviews_analysis.parquet
+reviews,reviews_analysis_format,parquet

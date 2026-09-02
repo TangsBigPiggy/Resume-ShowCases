@@ -1,0 +1,16 @@
+section,name,n,share
+eligibility,DEVICE,47131,0.462736
+eligibility,ACCESSORY,44648,0.438357
+eligibility,AMBIGUOUS,10074,0.098907
+device_form,EARBUD_INEAR,33999,0.721372
+device_form,OVER_EAR,8831,0.187371
+device_form,ON_EAR,4121,0.087437
+device_form,UNKNOWN,180,0.003819
+decision_reason,model_device_above_threshold_with_device_subject,47131,0.462736
+decision_reason,model_accessory_below_threshold_with_accessory_context,26512,0.260297
+decision_reason,strong_accessory_relation,16731,0.164266
+decision_reason,taxonomy_device_but_title_has_no_device_subject,5500,0.053999
+decision_reason,no_headphone_subject_in_title,4143,0.040676
+decision_reason,accessory_taxonomy_and_context,1405,0.013794
+decision_reason,probability_or_semantics_not_decisive,397,0.003898
+decision_reason,invalid_or_empty_title,34,0.000334

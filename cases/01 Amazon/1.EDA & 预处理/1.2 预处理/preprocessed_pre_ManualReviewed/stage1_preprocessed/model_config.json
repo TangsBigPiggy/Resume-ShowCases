@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "target_l2": "Headphones, Earbuds & Accessories",
+  "reviewed_gold_rows": 2500,
+  "gold_distribution": {
+    "DEVICE": 1394,
+    "ACCESSORY": 966,
+    "AMBIGUOUS": 140
+  },
+  "device_threshold": 0.4100000000000002,
+  "accessory_threshold": 0.31000000000000016,
+  "form_threshold": 0.4700000000000001,
+  "cv_folds": 5,
+  "seed": 20260901,
+  "text_cleaning": "NFKC, HTML/control character and whitespace normalization"
+}

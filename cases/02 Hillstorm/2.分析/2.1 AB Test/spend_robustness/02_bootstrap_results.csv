@@ -1,0 +1,4 @@
+﻿group_a,group_b,observed_difference,bootstrap_mean_difference,bootstrap_standard_error,bootstrap_ci_low,bootstrap_ci_high,bootstrap_ci_method,ci_label
+Mens E-Mail,No E-Mail,0.7698271558945368,0.7709149626781613,0.1447485367809582,0.492313440596298,1.0568796667478486,percentile,nominal_95pct_unadjusted
+Womens E-Mail,No E-Mail,0.4244122159365967,0.42282791239866035,0.12877708136325494,0.1664722828075446,0.6799279727888003,percentile,nominal_95pct_unadjusted
+Mens E-Mail,Womens E-Mail,0.34541493995794004,0.34808705027950093,0.158635133268175,0.04043233714107152,0.6594777170079286,percentile,nominal_95pct_unadjusted

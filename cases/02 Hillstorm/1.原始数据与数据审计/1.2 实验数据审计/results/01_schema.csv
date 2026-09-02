@@ -1,0 +1,13 @@
+﻿column,dtype,non_null,unique_values
+recency,int64,64000,12
+history_segment,str,64000,7
+history,float64,64000,34833
+mens,int64,64000,2
+womens,int64,64000,2
+zip_code,str,64000,3
+newbie,int64,64000,2
+channel,str,64000,3
+segment,str,64000,3
+visit,int64,64000,2
+conversion,int64,64000,2
+spend,float64,64000,429

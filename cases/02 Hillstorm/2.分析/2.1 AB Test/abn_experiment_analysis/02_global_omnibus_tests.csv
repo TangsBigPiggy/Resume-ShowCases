@@ -1,0 +1,4 @@
+﻿outcome,test,statistic,df_num,df_denom,p_value,significant
+visit,chi_square,504.46066903563496,2.0,,2.869178384267155e-110,True
+conversion,chi_square,55.258039933229625,2.0,,1.0020031529493264e-12,True
+spend,welch_anova,15.296831658184034,2.0,41336.12301187047,2.286270624017066e-07,True

@@ -1,0 +1,4 @@
+﻿group_a,group_b,observed_t,permutation_p_value,permutation_max_abs_t_p_value,permutations,permutation_p_value_holm,significant_permutation_holm,significant_max_abs_t
+Mens E-Mail,No E-Mail,5.300140358411669,9.999000099990002e-05,9.999000099990002e-05,10000,0.00029997000299970003,True,True
+Womens E-Mail,No E-Mail,3.2563715760253924,0.0016998300169983002,0.0036996300369963003,10000,0.0033996600339966003,True,True
+Mens E-Mail,Womens E-Mail,2.1640178817618563,0.031596840315968405,0.0810918908109189,10000,0.031596840315968405,True,False

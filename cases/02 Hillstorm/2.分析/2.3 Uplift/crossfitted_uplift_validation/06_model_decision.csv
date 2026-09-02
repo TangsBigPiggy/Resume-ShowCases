@@ -1,0 +1,3 @@
+﻿model,role,supported_treatment_count,supported_treatments,multivariate_ranking_evidence
+T-Learner,benchmark,0,,insufficient
+DR-Learner,primary,0,,insufficient

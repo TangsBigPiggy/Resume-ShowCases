@@ -1,0 +1,58 @@
+﻿variable,level,segment,count,within_segment_share
+history_segment,1) $0 - $100,No E-Mail,7612,0.3572702525110298
+history_segment,2) $100 - $200,No E-Mail,4836,0.22697831596733314
+history_segment,3) $200 - $350,No E-Mail,4044,0.18980568853843988
+history_segment,4) $350 - $500,No E-Mail,2124,0.09969022810475922
+history_segment,5) $500 - $750,No E-Mail,1652,0.0775368440814794
+history_segment,"6) $750 - $1,000",No E-Mail,622,0.029193654369661128
+history_segment,"7) $1,000 +",No E-Mail,416,0.019525016427297474
+history_segment,1) $0 - $100,Mens E-Mail,7724,0.36250997324822826
+history_segment,2) $100 - $200,Mens E-Mail,4691,0.22016238794762286
+history_segment,3) $200 - $350,Mens E-Mail,4090,0.1919556953114
+history_segment,4) $350 - $500,Mens E-Mail,2097,0.09841836016332661
+history_segment,5) $500 - $750,Mens E-Mail,1597,0.07495189374384005
+history_segment,"6) $750 - $1,000",Mens E-Mail,644,0.030224808748298682
+history_segment,"7) $1,000 +",Mens E-Mail,464,0.021776880837283522
+history_segment,1) $0 - $100,Womens E-Mail,7634,0.3569458082012437
+history_segment,2) $100 - $200,Womens E-Mail,4727,0.22102211623883666
+history_segment,3) $200 - $350,Womens E-Mail,4155,0.19427689718053023
+history_segment,4) $350 - $500,Womens E-Mail,2188,0.10230513863561977
+history_segment,5) $500 - $750,Womens E-Mail,1662,0.07771075887221209
+history_segment,"6) $750 - $1,000",Womens E-Mail,593,0.027727123953803712
+history_segment,"7) $1,000 +",Womens E-Mail,428,0.020012156917753775
+mens,0,No E-Mail,9519,0.4467755561813574
+mens,1,No E-Mail,11787,0.5532244438186427
+mens,0,Mens E-Mail,9568,0.44905430140329466
+mens,1,Mens E-Mail,11739,0.5509456985967053
+mens,0,Womens E-Mail,9647,0.45106840604105297
+mens,1,Womens E-Mail,11740,0.548931593958947
+womens,0,No E-Mail,9638,0.45236083732281984
+womens,1,No E-Mail,11668,0.5476391626771802
+womens,0,Mens E-Mail,9558,0.44858497207490494
+womens,1,Mens E-Mail,11749,0.551415027925095
+womens,0,Womens E-Mail,9622,0.44989947164165145
+womens,1,Womens E-Mail,11765,0.5501005283583486
+zip_code,Rural,No E-Mail,3139,0.14732939078193935
+zip_code,Surburban,No E-Mail,9625,0.4517506805594668
+zip_code,Urban,No E-Mail,8542,0.4009199286585938
+zip_code,Rural,Mens E-Mail,3243,0.1522035011967898
+zip_code,Surburban,Mens E-Mail,9501,0.44590979490308347
+zip_code,Urban,Mens E-Mail,8563,0.4018867039001267
+zip_code,Rural,Womens E-Mail,3181,0.14873521297984757
+zip_code,Surburban,Womens E-Mail,9650,0.45120867816898114
+zip_code,Urban,Womens E-Mail,8556,0.40005610885117127
+newbie,0,No E-Mail,10611,0.49802872430301326
+newbie,1,No E-Mail,10695,0.5019712756969867
+newbie,0,Mens E-Mail,10621,0.4984746796827334
+newbie,1,Mens E-Mail,10686,0.5015253203172666
+newbie,0,Womens E-Mail,10624,0.4967503623696638
+newbie,1,Womens E-Mail,10763,0.5032496376303361
+channel,Multichannel,No E-Mail,2606,0.12231296348446447
+channel,Phone,No E-Mail,9327,0.4377640101379893
+channel,Web,No E-Mail,9373,0.4399230263775462
+channel,Multichannel,Mens E-Mail,2577,0.1209461679260337
+channel,Phone,Mens E-Mail,9240,0.43366029943211154
+channel,Web,Mens E-Mail,9490,0.4453935326418548
+channel,Multichannel,Womens E-Mail,2579,0.12058727264225931
+channel,Phone,Womens E-Mail,9454,0.4420442324776733
+channel,Web,Womens E-Mail,9354,0.43736849488006735

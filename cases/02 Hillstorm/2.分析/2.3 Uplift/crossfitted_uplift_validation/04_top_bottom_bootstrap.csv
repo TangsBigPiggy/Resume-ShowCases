@@ -1,0 +1,5 @@
+﻿model,treatment,score_column,top_30pct_n,bottom_30pct_n,top_30pct_effect,bottom_30pct_effect,top_minus_bottom,bootstrap_ci_low,bootstrap_ci_high,bootstrap_p_value_two_sided,bootstrap_replications,ci_label,bootstrap_p_value_holm,top_bottom_supported_holm
+T-Learner,Mens E-Mail,tau_mens_tlearner,12783,12783,0.6378706873992834,0.7150689303413654,-0.077198242942082,-0.8311592213208423,0.6829126536261743,0.8235882058970515,2000,fixed_score_percentile_95pct,1.0,False
+T-Learner,Womens E-Mail,tau_womens_tlearner,12807,12807,0.4961906878350444,0.602434054154952,-0.1062433663199076,-0.819188890026718,0.5705303699974492,0.7796101949025487,2000,fixed_score_percentile_95pct,1.0,False
+DR-Learner,Mens E-Mail,tau_mens_drlearner,12783,12783,0.8458475849520766,1.0546728582738116,-0.20882527332173506,-0.9816971746093819,0.5808306823997933,0.6226886556721639,2000,fixed_score_percentile_95pct,1.0,False
+DR-Learner,Womens E-Mail,tau_womens_drlearner,12807,12807,0.5044147101279093,0.376295888502728,0.1281188216251813,-0.5382592931031942,0.7752428730885287,0.719640179910045,2000,fixed_score_percentile_95pct,1.0,False

@@ -1,0 +1,19 @@
+{
+  "data_path": "E:\\DA Cases\\Hillstorm\\0.原始数据\\hillstorm_no_indices.csv\\hillstorm_no_indices.csv",
+  "rows": 64000,
+  "folds": 5,
+  "features": [
+    "recency",
+    "history",
+    "mens",
+    "womens",
+    "newbie",
+    "channel",
+    "zip_code"
+  ],
+  "action_probability": 0.3333333333333333,
+  "bootstrap_replications": 2000,
+  "model_iterations": 150,
+  "min_samples_leaf": 100,
+  "random_seed": 20260902
+}

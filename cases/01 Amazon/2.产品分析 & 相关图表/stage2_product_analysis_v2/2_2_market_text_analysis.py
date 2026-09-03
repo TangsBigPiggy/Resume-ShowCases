@@ -847,6 +847,7 @@ def review_tiers(products_text: pd.DataFrame) -> pd.Series:
         include_lowest=True,
     ).astype("string")
 
+
 def review_tier_summary(
     products_text: pd.DataFrame,
     tiers: pd.Series,

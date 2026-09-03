@@ -1,0 +1,15 @@
+﻿metric,value
+device_products,47131.0
+brand_store_count,8588.0
+price_fill_rate,0.24202754026012605
+rating_fill_rate,1.0
+price_p25,16.0
+price_median,28.99
+price_p75,59.84
+price_p90,139.0
+rating_mean,3.7385224162440855
+rating_median,3.8
+analysis_review_total,2963761.0
+review_count_median,5.0
+review_count_p90,85.0
+products_with_analysis_reviews,47119.0

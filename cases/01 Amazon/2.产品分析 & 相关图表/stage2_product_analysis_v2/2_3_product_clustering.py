@@ -847,7 +847,8 @@ def evaluate_hdbscan_grid(
         if key in existing:
             continue
 
-        print(            f"  HDBSCAN [{stage}] "
+        print(
+            f"  HDBSCAN [{stage}] "
             f"min_cluster_size={key[0]}, "
             f"min_samples={key[1]}"
         )
@@ -1696,7 +1697,8 @@ def segment_profiles(
             "dominant_form_factor_share": dominant_form_share,
             "dominant_price_band": dominant_price_band,
             "dominant_price_band_share": dominant_price_band_share,
-            "median_cluster_probability": float(                group["cluster_probability"].median()
+            "median_cluster_probability": float(
+                group["cluster_probability"].median()
             ),
             "low_confidence_rate_lt_05": float(
                 (group["cluster_probability"] < 0.5).mean()
@@ -2545,7 +2547,8 @@ def draw_price_rating_profile(
                 row["median_price_observed"],
                 row["median_rating"],
             ),
-            xytext=(5, 6),            textcoords="offset points",
+            xytext=(5, 6),
+            textcoords="offset points",
             fontsize=8.3,
         )
 

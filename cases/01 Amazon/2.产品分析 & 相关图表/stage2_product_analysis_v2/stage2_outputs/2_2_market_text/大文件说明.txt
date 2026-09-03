@@ -1,0 +1,18 @@
+Stage 2.2 大文件说明
+
+本目录未上传以下可重建文件：
+
+1. cache/ 全目录：商品语料、评分语料、词项稀疏矩阵、词表、商品顺序与 cache 状态；其中两个语料 Parquet 各约 283 MB，NPZ 矩阵约 105.67 MB。
+2. tables/brand_store_keywords_market_weighted.csv：约 42.13 MB。
+3. tables/brand_store_keywords_product_equal.csv：约 53.44 MB。
+4. tables/global_product_tfidf.csv：商品级 TF-IDF 特征矩阵，约 7.16 MB。
+5. tables/global_ngram_frequency.csv / global_bigram_frequency.csv / global_trigram_frequency.csv / global_unigram_frequency.csv：完整全市场词频长表，约 6.27/4.27/1.21/0.79 MB。
+6. figures.zip：figures/ 的重复压缩包。
+
+生成脚本：stage2_product_analysis_v2/2_2_market_text_analysis.py。
+
+输入：Stage 1 的 products_analysis.csv 和 reviews_analysis.parquet。
+
+用途：cache 用于避免重复构建语料与稀疏矩阵；两个 Brand/Store 大表用于实体级关键词长表；global_product_tfidf 是后续聚类的商品级文本特征；全市场词频长表保存完整词项排名。它们均可由脚本重新生成，GitHub 仅保留可直接阅读的图表、紧凑汇总表与配置。
+
+复现：安装 requirements.txt 依赖，准备上述两个输入，运行 2_2_market_text_analysis.py；需要强制重建缓存时增加 --rebuild-cache。路径参数以脚本 --help 为准。

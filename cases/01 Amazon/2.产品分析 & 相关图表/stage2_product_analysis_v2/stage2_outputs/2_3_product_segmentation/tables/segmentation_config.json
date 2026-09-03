@@ -1,0 +1,68 @@
+{
+  "product_unit": "one row per product",
+  "text_source": "2.2 full-review product term matrix",
+  "review_sampling": "none",
+  "cluster_definition": "text features only; price, rating, review scale, verified share, form factor and Brand / Store are profile variables",
+  "cluster_min_df": 25,
+  "cluster_max_df_ratio": 0.5,
+  "brand_min_products": 20,
+  "original_vocabulary_size": 100000,
+  "clustering_vocabulary_size": 92140,
+  "svd_components": 100,
+  "svd_explained_variance": 0.08683164152681894,
+  "kmeans_search": {
+    "k_min": 2,
+    "k_max": 12,
+    "k_extend_max": 16,
+    "selected_k": 2
+  },
+  "umap_base": {
+    "n_components": 15,
+    "n_neighbors": 30,
+    "metric": "cosine",
+    "random_state": 42
+  },
+  "hdbscan_search": {
+    "coarse_mcs_ratios": [
+      0.002,
+      0.005,
+      0.01,
+      0.02,
+      0.03,
+      0.04
+    ],
+    "coarse_min_samples": [
+      5,
+      10,
+      20,
+      40,
+      80
+    ],
+    "refine_rounds": 1,
+    "quality_gates": {
+      "max_noise_rate": 0.35,
+      "min_mean_cluster_persistence": 0.25,
+      "max_clusters": 15,
+      "max_largest_cluster_share": 0.75,
+      "relative_validity_must_be_positive": true
+    },
+    "selected_key": [
+      2149,
+      10
+    ],
+    "search_diagnostics": {
+      "boundary_extended": true,
+      "refinement_rounds_completed": 1,
+      "final_boundary_warning": null
+    }
+  },
+  "robustness_gates": {
+    "min_median_ari": 0.6,
+    "min_median_mapped_agreement": 0.65,
+    "max_noise_rate": 0.45,
+    "max_cluster_count_delta": 3
+  },
+  "selected_model": "HDBSCAN",
+  "review_scale_note": "analysis_review_count is review scale, not sales",
+  "price_note": "price is excluded from clustering and profiled only for price-observed products"
+}

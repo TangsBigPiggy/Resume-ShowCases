@@ -1,0 +1,68 @@
+# Python bytecode, test/tool caches, and local environments
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# IDE and operating-system files
+.idea/
+.vscode/
+*.code-workspace
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs, temporary files, and Office lock files
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+~$*
+
+# Raw datasets and compressed raw extracts
+*.jsonl
+*.jsonl.gz
+*.json.gz
+
+# Rebuildable binary/columnar artifacts and duplicate archives
+*.parquet
+*.npz
+*.zip
+*.duckdb
+*.db-wal
+*.db-shm
+
+# Stage 1 large row-level derivatives
+/1.EDA & 预处理/1.2 预处理/preprocessed_pre_ManualReviewed/stage1_preprocessed/reviews_analysis.csv
+/1.EDA & 预处理/1.2 预处理/preprocessed_pre_ManualReviewed/stage1_preprocessed/reviews_analysis.csv.gz
+/1.EDA & 预处理/1.2 预处理/preprocessed_pre_ManualReviewed/stage1_preprocessed/product_eligibility_final.csv
+/1.EDA & 预处理/1.2 预处理/preprocessed_pre_ManualReviewed/stage1_preprocessed/products_analysis.csv
+/1.EDA & 预处理/1.2 预处理/preprocessed_pre_ManualReviewed/stage1_preprocessed/product_quality_flags.csv
+/1.EDA & 预处理/1.2 预处理/preprocessed_pre_ManualReviewed/stage1_preprocessed/eligibility_model.joblib
+/1.EDA & 预处理/1.2 预处理/preprocessed_pre_ManualReviewed/stage1_preprocessed/form_factor_model.joblib
+
+# Stage 2 caches, trained models, feature matrices, and oversized audit tables
+/2.产品分析 & 相关图表/stage2_product_analysis_v2/stage2_outputs/**/cache/
+/2.产品分析 & 相关图表/stage2_product_analysis_v2/stage2_outputs/**/models/
+/2.产品分析 & 相关图表/stage2_product_analysis_v2/stage2_outputs/2_1_product_landscape/tables/product_positioning.csv
+/2.产品分析 & 相关图表/stage2_product_analysis_v2/stage2_outputs/2_1_product_landscape/tables/review_concentration_curve.csv
+/2.产品分析 & 相关图表/stage2_product_analysis_v2/stage2_outputs/2_2_market_text/tables/brand_store_keywords_market_weighted.csv
+/2.产品分析 & 相关图表/stage2_product_analysis_v2/stage2_outputs/2_2_market_text/tables/brand_store_keywords_product_equal.csv
+/2.产品分析 & 相关图表/stage2_product_analysis_v2/stage2_outputs/2_2_market_text/tables/global_product_tfidf.csv
+/2.产品分析 & 相关图表/stage2_product_analysis_v2/stage2_outputs/2_2_market_text/tables/global_ngram_frequency.csv
+/2.产品分析 & 相关图表/stage2_product_analysis_v2/stage2_outputs/2_2_market_text/tables/global_bigram_frequency.csv
+/2.产品分析 & 相关图表/stage2_product_analysis_v2/stage2_outputs/2_2_market_text/tables/global_trigram_frequency.csv
+/2.产品分析 & 相关图表/stage2_product_analysis_v2/stage2_outputs/2_2_market_text/tables/global_unigram_frequency.csv
+/2.产品分析 & 相关图表/stage2_product_analysis_v2/stage2_outputs/2_3_product_segmentation/tables/cluster_feature_filter_audit.csv
+/2.产品分析 & 相关图表/stage2_product_analysis_v2/stage2_outputs/2_3_product_segmentation/tables/cluster_vocabulary.csv
+/2.产品分析 & 相关图表/stage2_product_analysis_v2/stage2_outputs/2_3_product_segmentation/tables/product_segments.csv
+
+# Superseded extensionless Word draft; the v1.0 DOCX is the public report
+/3.报告 & 可视化（Power BI）/报告

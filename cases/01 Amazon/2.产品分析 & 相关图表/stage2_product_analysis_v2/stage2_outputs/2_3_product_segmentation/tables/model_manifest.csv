@@ -1,0 +1,9 @@
+﻿file,size_mb
+hdbscan_candidate.joblib,21.21614360809326
+hdbscan_final.joblib,21.21614360809326
+kmeans_benchmark.joblib,0.18196392059326172
+svd_model.joblib,70.30023860931396
+svd_normalizer.joblib,0.00012493133544921875
+tfidf_transformer.joblib,0.7033605575561523
+umap_2d_model.joblib,109.1095666885376
+umap_cluster_model.joblib,111.4462480545044

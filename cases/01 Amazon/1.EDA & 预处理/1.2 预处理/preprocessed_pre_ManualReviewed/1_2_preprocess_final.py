@@ -798,6 +798,7 @@ def development_probabilities(
 
         if ambiguous_idx:
             amb_sum += model.predict_proba(amb_X)[:, 1]
+
         print(f"  eligibility CV fold {fold_no}/{folds} done", flush=True)
 
     if ambiguous_idx:
@@ -1596,7 +1597,8 @@ class AnalysisReviewWriter:
                 ("rating", self.pa.float64()),
                 ("review_date", self.pa.string()),
                 ("review_year", self.pa.int32()),
-                ("verified_purchase", self.pa.bool_()),                ("helpful_vote", self.pa.int64()),
+                ("verified_purchase", self.pa.bool_()),
+                ("helpful_vote", self.pa.int64()),
                 ("review_title", self.pa.string()),
                 ("text_raw", self.pa.string()),
                 ("text_clean", self.pa.string()),

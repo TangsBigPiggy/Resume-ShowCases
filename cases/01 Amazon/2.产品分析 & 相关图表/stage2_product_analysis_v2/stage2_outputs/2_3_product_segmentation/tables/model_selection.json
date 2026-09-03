@@ -1,0 +1,29 @@
+{
+  "selected_model": "HDBSCAN",
+  "selection_reason": "HDBSCAN passed density quality gates and UMAP robustness checks; KMeans retained as benchmark.",
+  "kmeans_k": 2,
+  "kmeans_silhouette": 0.0721410439430192,
+  "kmeans_stability_ari": 0.9976814545602605,
+  "hdbscan_min_cluster_size": 2149,
+  "hdbscan_min_samples": 10,
+  "hdbscan_cluster_count": 4,
+  "hdbscan_noise_rate": 0.14425178802606167,
+  "hdbscan_relative_validity": 0.3418326236805455,
+  "hdbscan_mean_persistence": 0.41402535076819685,
+  "hdbscan_silhouette_assigned": 0.5595516562461853,
+  "hdbscan_composite_score": 0.6628205128205128,
+  "umap_robustness_pass": true,
+  "kmeans_hdbscan_ari_assigned": 0.2233164352470116,
+  "hdbscan_search_diagnostics": {
+    "boundary_extended": true,
+    "refinement_rounds_completed": 1,
+    "final_boundary_warning": null
+  },
+  "umap_robustness_summary": {
+    "robustness_pass": true,
+    "median_ari": 0.9435914234536809,
+    "median_mapped_agreement": 0.9309537741369222,
+    "max_noise_rate": 0.20516139985992912,
+    "max_cluster_count_delta": 1
+  }
+}

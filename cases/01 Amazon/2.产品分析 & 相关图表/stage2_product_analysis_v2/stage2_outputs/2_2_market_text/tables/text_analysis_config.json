@@ -1,0 +1,32 @@
+{
+  "review_policy": "all non-empty text_clean reviews",
+  "review_sampling": "none",
+  "review_boundary_safe_ngram": true,
+  "ngram_range": [
+    1,
+    3
+  ],
+  "max_features": 100000,
+  "min_df_product_documents": 5,
+  "max_df_product_documents": 0.95,
+  "market_weighted_view": "raw term counts retain observed review-volume contribution",
+  "product_equal_view": "each product is L1-normalized before group aggregation",
+  "tfidf_document_unit": "product",
+  "price_band_scope": "price-observed products only",
+  "brand_store_scope": "all non-Unknown Brand / Store groups",
+  "review_tiers": [
+    "TOP_1_PCT",
+    "P1_5_PCT",
+    "P5_20_PCT",
+    "BOTTOM_80_PCT"
+  ],
+  "review_scale_note": "analysis_review_count is review scale, not sales",
+  "figures": [
+    "fig01_top_market_bigrams.png",
+    "fig02_form_factor_keyword_heatmap.png",
+    "fig03_price_band_keyword_heatmap.png",
+    "fig04_rating_group_keyword_heatmap.png",
+    "fig05_head_vs_longtail_keyword_heatmap.png",
+    "fig06_market_vs_product_equal.png"
+  ]
+}

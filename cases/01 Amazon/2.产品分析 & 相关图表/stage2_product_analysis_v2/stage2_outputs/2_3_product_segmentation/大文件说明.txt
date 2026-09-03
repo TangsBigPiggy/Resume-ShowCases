@@ -1,0 +1,20 @@
+Stage 2.3 大文件说明
+
+本目录未上传以下可重建文件：
+
+1. models/ 全目录：TF-IDF、SVD、UMAP、KMeans 与 HDBSCAN 模型对象，合计约 336.60 MB。
+2. tables/product_text_svd_features.parquet 及 zip：商品文本 SVD 特征矩阵，约 42.56/43.39 MB。
+3. tables/product_umap_2d.parquet 及 zip：二维 UMAP 坐标，约 0.90/0.92 MB。
+4. tables/product_segment_stability.parquet：商品级稳健性映射，约 0.34 MB。
+5. tables/cluster_feature_filter_audit.csv 及 zip：逐词项过滤审计，约 6.66/5.72 MB。
+6. tables/cluster_vocabulary.csv：完整聚类词表，约 6.08 MB。
+7. tables/product_segments.csv：逐商品最终 Segment 映射与画像字段，约 8.69 MB。
+8. 2_3 figures tables.zip、2_3tables.zip、2_3figures.zip：已保留目录内容的重复压缩包。
+
+生成脚本：stage2_product_analysis_v2/2_3_product_clustering.py。
+
+输入：Stage 1 的 products_analysis.csv，以及 Stage 2.2 输出目录中的文本语料、词表和稀疏矩阵。
+
+用途：上述文件支持模型复用、降维、分群、逐商品映射与逐特征审计；公开仓库保留 Segment 汇总、模型选择/稳健性诊断和全部关键图表，足以审计报告中的核心统计结论。
+
+复现：先完成 Stage 2.2，再运行 2_3_product_clustering.py。脚本会执行词项过滤、TF-IDF、TruncatedSVD、UMAP、KMeans 基准、HDBSCAN 搜索和稳健性测试，并重新生成 models、特征文件与图表。路径和参数以脚本 --help 为准。

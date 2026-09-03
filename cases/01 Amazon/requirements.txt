@@ -1,0 +1,11 @@
+duckdb
+hdbscan
+joblib
+matplotlib
+numpy
+pandas
+pyarrow
+scikit-learn
+scipy
+umap-learn
+

@@ -1,4 +1,4 @@
-metric_scope,label,precision,recall,rating_number_weighted_precision,rating_number_weighted_recall,n_gold
+﻿metric_scope,label,precision,recall,rating_number_weighted_precision,rating_number_weighted_recall,n_gold
 internal_oof,DEVICE,0.980147,0.956241,0.999455,0.972312,2500
 internal_oof,ACCESSORY,0.976219,0.849896,0.992883,0.987076,2500
 internal_oof,NON_AMBIGUOUS_COVERAGE,,0.8804,,,2500

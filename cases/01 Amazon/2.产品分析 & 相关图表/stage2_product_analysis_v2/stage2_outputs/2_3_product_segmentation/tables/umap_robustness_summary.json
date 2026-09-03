@@ -1,0 +1,7 @@
+{
+  "robustness_pass": true,
+  "median_ari": 0.9435914234536809,
+  "median_mapped_agreement": 0.9309537741369222,
+  "max_noise_rate": 0.20516139985992912,
+  "max_cluster_count_delta": 1
+}
